@@ -1,0 +1,14 @@
+[build]
+  command = "pnpm build"
+  publish = ".output/public"
+  functions = ".netlify/functions-internal"
+
+[build.environment]
+  NITRO_PRESET = "netlify"
+  VITE_TRUTHGUARD_API_URL = ""
+  NODE_VERSION = "22"
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/server"
+  status = 200

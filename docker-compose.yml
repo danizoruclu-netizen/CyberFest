@@ -1,0 +1,28 @@
+services:
+  backend:
+    build: ./backend
+    container_name: truthguard-backend
+    ports:
+      - "8000:8000"
+    environment:
+      CORS_ORIGINS: "http://localhost:8080,http://127.0.0.1:8080"
+      RATE_LIMIT_PER_MINUTE: "60"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)"]
+      interval: 5s
+      timeout: 4s
+      retries: 12
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      args:
+        VITE_TRUTHGUARD_API_URL: "http://localhost:8000"
+    container_name: truthguard-frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped

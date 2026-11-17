@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "pnpm build",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "env": {
+    "NITRO_PRESET": "vercel",
+    "VITE_TRUTHGUARD_API_URL": ""
+  }
+}
